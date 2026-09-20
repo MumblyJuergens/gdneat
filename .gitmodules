@@ -2,3 +2,7 @@
 	path = godot-cpp
 	url = https://github.com/godotengine/godot-cpp
 	branch = 4.5
+[submodule "neat"]
+	path = neat
+	url = git@github.com:MumblyJuergens/neat.git
+	branch = develop

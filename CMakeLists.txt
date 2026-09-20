@@ -1,4 +1,9 @@
+cmake_minimum_required(VERSION 4.4)
+
 # Based loosely on the Godot example file.
+
+add_subdirectory(godot-cpp SYSTEM)
+add_subdirectory(neat)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${godot-cpp_SOURCE_DIR}/cmake")
 include(emsdkHack)
