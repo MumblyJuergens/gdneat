@@ -48,7 +48,7 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Set up GCC
-      runs-on: ubuntu-latest
+      if: matrix.os == 'ubuntu-latest'
       uses: egor-tensin/setup-gcc@v2
       with:
         version: latest
@@ -58,7 +58,7 @@ jobs:
       uses: ssrobins/install-cmake@v1
 
     - name: Setup MSVC
-      runs-on: windows-latest
+      if: matrix.os == 'windows-latest'
       uses: mlocati/setup-msvc@v1
 
     - name: Configure CMake
