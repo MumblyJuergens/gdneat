@@ -2,10 +2,17 @@ cmake_minimum_required(VERSION 4.4)
 
 # Based loosely on the Godot example file.
 
-add_subdirectory(godot-cpp SYSTEM)
-add_subdirectory(neat)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(CPM)
+include(helpers)
 
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${godot-cpp_SOURCE_DIR}/cmake")
+CPMAddPackage("gh:godotengine/godot-cpp#4.5")
+CPMAddPackage("gh:MumblyJuergens/neat#develop")
+
+# add_subdirectory(godot-cpp SYSTEM)
+# add_subdirectory(neat)
+
+list(APPEND CMAKE_MODULE_PATH "${godot-cpp_SOURCE_DIR}/cmake")
 include(emsdkHack)
 include(GodotCPPModule)
 
@@ -50,9 +57,9 @@ target_sources(gdneat
 
 target_link_libraries(gdneat PRIVATE godot-cpp neat::neat)
 target_compile_features(gdneat PRIVATE cxx_std_26)
-
-# TODO: Only if building GDNeat?
-target_compile_options(neat PUBLIC -fPIC)
+set_target_properties(gdneat PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(neat PROPERTIES POSITION_INDEPENDENT_CODE ON)
+FullCompilerWarnings(gdneat PRIVATE)
 
 set_target_properties(gdneat
     PROPERTIES
