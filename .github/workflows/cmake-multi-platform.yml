@@ -25,28 +25,18 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         build_type: [Release]
-        c_compiler: [gcc, clang, cl]
         include:
           - os: windows-latest
-            c_compiler: cl
-            cpp_compiler: cl
+            c_compiler: x86_64-w64-mingw32-gcc
+            cpp_compiler: x86_64-w64-mingw32-g++
+            generator: x86_64-w64-mingw32-ninja
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
           - os: macos-latest
             c_compiler: clang
             cpp_compiler: clang++
-        exclude:
-          - os: windows-latest
-            c_compiler: gcc
-          - os: windows-latest
-            c_compiler: clang
-          - os: ubuntu-latest
-            c_compiler: cl
-          - os: macos-latest
-            c_compiler: cl
-          - os: macos-latest
-            c_compiler: gcc
+
 
     steps:
     - uses: actions/checkout@v4
@@ -58,6 +48,28 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
+    - name: Install CMake
+      uses: ssrobins/install-cmake@v1
+
+    - name: Set up GCC
+      if: matrix.os == 'ubuntu-latest'
+      uses: egor-tensin/setup-gcc@v2
+      with:
+        version: 16
+        platform: x64    
+
+    - name: Set up MinGW
+      if: matrix.os == 'windows-latest'
+      uses: egor-tensin/setup-mingw@v3
+      with:
+        platform: x64
+
+    - name: Verify MinGW Installation
+      if: matrix.os == 'windows-latest'
+      run: |
+        x86_64-w64-mingw32-gcc --version
+        x86_64-w64-mingw32-g++ --version
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -67,6 +79,7 @@ jobs:
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
+        -G Ninja
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).

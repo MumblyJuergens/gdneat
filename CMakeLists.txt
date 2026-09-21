@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.4)
+cmake_minimum_required(VERSION 4.3)
 
 # Based loosely on the Godot example file.
 
@@ -60,6 +60,9 @@ target_compile_features(gdneat PRIVATE cxx_std_26)
 set_target_properties(gdneat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties(neat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 FullCompilerWarnings(gdneat PRIVATE)
+if (MINGW AND CMAKE_CXX_COMPILER_ID STREQUAL GNU)
+  target_link_libraries(gdneat PUBLIC stdc++exp) # std:: print, println, ...
+endif()
 
 set_target_properties(gdneat
     PROPERTIES
