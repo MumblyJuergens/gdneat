@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 4.3)
 
 # Based loosely on the Godot example file.
 
@@ -56,7 +56,7 @@ target_sources(gdneat
 # endif()
 
 target_link_libraries(gdneat PRIVATE godot-cpp neat::neat)
-target_compile_features(gdneat PRIVATE cxx_std_23)
+target_compile_features(gdneat PRIVATE cxx_std_26)
 set_target_properties(gdneat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties(neat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 FullCompilerWarnings(gdneat PRIVATE)
