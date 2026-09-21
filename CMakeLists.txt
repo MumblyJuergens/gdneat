@@ -56,7 +56,7 @@ target_sources(gdneat
 # endif()
 
 target_link_libraries(gdneat PRIVATE godot-cpp neat::neat)
-target_compile_features(gdneat PRIVATE cxx_std_26)
+target_compile_features(gdneat PRIVATE cxx_std_23)
 set_target_properties(gdneat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties(neat PROPERTIES POSITION_INDEPENDENT_CODE ON)
 FullCompilerWarnings(gdneat PRIVATE)
