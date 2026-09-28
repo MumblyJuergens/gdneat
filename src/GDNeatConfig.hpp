@@ -2,6 +2,7 @@
 
 #include "neat/Config.hpp"
 #include "neat/types.hpp"
+#include <cstdint>
 #include <godot_cpp/classes/resource.hpp>
 #include <godot_cpp/core/math_defs.hpp>
 
@@ -19,6 +20,7 @@ class GDNeatConfig : public godot::Resource
   public:
     // May as well be public, access from GDNeatPopulation required.
     neat::Config config;
+    int seed = 0;
 
     // clang-format off
 
@@ -30,10 +32,10 @@ class GDNeatConfig : public godot::Resource
     neat::index_t get_setup_bias_input() const { return config.setup_bias_input; }
     double get_setup_inital_connection_rate() const { return static_cast<double>(config.setup_inital_connection_rate); }
     void set_setup_population_size(int value) { config.setup_population_size = value; }
-    void set_setup_input_nodes(int value) { config.setup_input_nodes = value; }
-    void set_setup_output_nodes(int value) { config.setup_output_nodes = value; }
+    void set_setup_input_nodes(int value) { config.setup_input_nodes = static_cast<int16_t>(value); }
+    void set_setup_output_nodes(int value) { config.setup_output_nodes = static_cast<int16_t>(value); }
     void set_setup_connect_bias(bool value) { config.setup_connect_bias = value; }
-    void set_setup_bias_input(neat::index_t value) { config.setup_bias_input = value; }
+    void set_setup_bias_input(neat::index_t value) { config.setup_bias_input = static_cast<int16_t>(value); }
     void set_setup_inital_connection_rate(double value) { config.setup_inital_connection_rate = static_cast<neat::real_t>(value); }
 
     // Speciation.
@@ -73,6 +75,10 @@ class GDNeatConfig : public godot::Resource
     void set_mutate_new_connection_rate(double value) { config.mutate_new_connection_rate = static_cast<neat::real_t>(value); }
     void set_mutate_new_node_rate(double value) { config.mutate_new_node_rate = static_cast<neat::real_t>(value); }
     void set_mutate_disable_node_rate(double value) { config.mutate_disable_node_rate = static_cast<neat::real_t>(value); }
+
+    // Seed
+    int get_seed() const { return seed; }
+    void set_seed(int value) { seed = value; }
 
     // clang-format on
 };

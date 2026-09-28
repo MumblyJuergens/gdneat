@@ -33,6 +33,7 @@ void GDNeatConfig::_bind_methods()
     godot::ClassDB::bind_method(godot::D_METHOD("get_mutate_new_connection_rate"), &GDNeatConfig::get_mutate_new_connection_rate);
     godot::ClassDB::bind_method(godot::D_METHOD("get_mutate_new_node_rate"), &GDNeatConfig::get_mutate_new_node_rate);
     godot::ClassDB::bind_method(godot::D_METHOD("get_mutate_disable_node_rate"), &GDNeatConfig::get_mutate_disable_node_rate);
+    godot::ClassDB::bind_method(godot::D_METHOD("get_seed"), &GDNeatConfig::get_seed);
 
     godot::ClassDB::bind_method(godot::D_METHOD("set_setup_population_size", "value"), &GDNeatConfig::set_setup_population_size);
     godot::ClassDB::bind_method(godot::D_METHOD("set_setup_input_nodes", "value"), &GDNeatConfig::set_setup_input_nodes);
@@ -56,6 +57,7 @@ void GDNeatConfig::_bind_methods()
     godot::ClassDB::bind_method(godot::D_METHOD("set_mutate_new_connection_rate", "value"), &GDNeatConfig::set_mutate_new_connection_rate);
     godot::ClassDB::bind_method(godot::D_METHOD("set_mutate_new_node_rate", "value"), &GDNeatConfig::set_mutate_new_node_rate);
     godot::ClassDB::bind_method(godot::D_METHOD("set_mutate_disable_node_rate", "value"), &GDNeatConfig::set_mutate_disable_node_rate);
+    godot::ClassDB::bind_method(godot::D_METHOD("set_seed", "value"), &GDNeatConfig::set_seed);
 
     ADD_GROUP("Setup", "");
     ADD_PROPERTY(godot::PropertyInfo(godot::Variant::INT, "population_size"), "set_setup_population_size", "get_setup_population_size");
@@ -86,6 +88,9 @@ void GDNeatConfig::_bind_methods()
     ADD_PROPERTY(godot::PropertyInfo(godot::Variant::FLOAT, "new_connection_rate"), "set_mutate_new_connection_rate", "get_mutate_new_connection_rate");
     ADD_PROPERTY(godot::PropertyInfo(godot::Variant::FLOAT, "new_node_rate"), "set_mutate_new_node_rate", "get_mutate_new_node_rate");
     ADD_PROPERTY(godot::PropertyInfo(godot::Variant::FLOAT, "disable_node_rate"), "set_mutate_disable_node_rate", "get_mutate_disable_node_rate");
+
+    ADD_GROUP("Seed", "");
+    ADD_PROPERTY(godot::PropertyInfo(godot::Variant::INT, "seed"), "set_seed", "get_seed");
 
     // clang-format on
 }

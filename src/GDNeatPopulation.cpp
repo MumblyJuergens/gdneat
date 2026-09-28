@@ -3,12 +3,14 @@
 #include "GDNeatGenome.hpp"
 #include "neat/Genome.hpp"
 #include "neat/SimplePopulation.hpp"
+#include <cstdint>
 #include <godot_cpp/classes/global_constants.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/print_string.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 #include <memory>
+#include <random>
 #include <vector>
 
 namespace gdneat
@@ -18,7 +20,8 @@ void GDNeatPopulation::create(godot::Ref<GDNeatConfig> cfg)
 {
     // Need to keep a reference, it's just how Population works atm.
     config = cfg;
-    population = std::make_unique<neat::SimplePopulation>(config->config);
+    uint32_t seed = cfg->seed == 0 ? std::random_device{}() : static_cast<uint32_t>(cfg->seed);
+    population = std::make_unique<neat::SimplePopulation>(seed, config->config);
 }
 
 void GDNeatPopulation::_bind_methods()
