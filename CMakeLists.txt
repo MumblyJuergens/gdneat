@@ -7,7 +7,7 @@ include(CPM)
 include(helpers)
 
 CPMAddPackage("gh:godotengine/godot-cpp#4.5")
-CPMAddPackage("gh:MumblyJuergens/neat@0.0.3")
+CPMAddPackage("gh:MumblyJuergens/neat@0.0.4")
 
 # add_subdirectory(godot-cpp SYSTEM)
 # add_subdirectory(neat)
@@ -25,7 +25,7 @@ get_target_property(GODOTCPP_SUFFIX godot::cpp GODOTCPP_SUFFIX)
 get_target_property(GODOTCPP_PLATFORM godot::cpp GODOTCPP_PLATFORM)
 
 project(gdneat
-    VERSION 1.0.1
+    VERSION 1.0.2
     DESCRIPTION "Hopefully enabling the use of NEAT with Godot"
     HOMEPAGE_URL "https://github.com/MumblyJuergens/gdneat"
     LANGUAGES CXX
